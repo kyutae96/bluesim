@@ -1,6 +1,34 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+                // Applies the component for the release build variant.
+                from(components.findByName("release"))
+
+                // Customize attributes of the publication.
+                groupId = "com.github.kyutae96"
+                artifactId = "blusim" // 예: TestLibrary
+                version = "1.0.0" // 예: 1.0.0
+            }
+            // Creates a Maven publication called "debug".
+            create<MavenPublication>("debug") {
+                // Applies the component for the debug build variant.
+                from(components.findByName("debug"))
+
+                // Customize attributes of the publication.
+                groupId = "com.github.kyutae96" // 예: mmol93
+                artifactId = "blusim" // 예: TestLibrary
+                version = "1.0.0" // 예: 1.0.0
+            }
+        }
+    }
 }
 
 android {
